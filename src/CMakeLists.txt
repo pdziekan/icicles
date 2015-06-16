@@ -1,3 +1,7 @@
+add_executable(icicles main.cpp micro.cpp)
+
+
+# libmpdata++ and its dependencies
 find_package(libmpdata++)
 
 if (NOT libmpdataxx_FOUND)
@@ -13,8 +17,17 @@ else()
   set(CMAKE_CXX_FLAGS_DEBUG ${libmpdataxx_CXX_FLAGS_DEBUG})
 endif()
 
-add_executable(icicles main.cpp)
-
 target_link_libraries(icicles ${libmpdataxx_LIBRARIES})
 target_include_directories(icicles PUBLIC ${libmpdataxx_INCLUDE_DIRS})
 
+# libcloudph++ and its dependencies
+find_package(libcloudph++)
+
+if (NOT libcloudphxx_FOUND)
+  message(FATAL_ERROR "libcloudph++ not found")
+endif()
+
+# TODO: flags
+
+target_link_libraries(icicles ${libcloudphxx_LIBRARIES})
+target_include_directories(icicles PUBLIC ${libcloudphxx_INCLUDE_DIRS})
