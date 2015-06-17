@@ -2,9 +2,7 @@
 
 #include <libcloudph++/lgrngn/factory.hpp>
 
-namespace {
-  namespace ll = libcloudphxx::lgrngn;
-};
+namespace ll = libcloudphxx::lgrngn;
 
 template <typename real_t>
 struct micro

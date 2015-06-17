@@ -1,4 +1,4 @@
-add_executable(icicles main.cpp micro.cpp)
+add_executable(icicles main.cpp micro.cpp opts.cpp)
 
 
 # libmpdata++ and its dependencies
