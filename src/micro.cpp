@@ -22,6 +22,7 @@ void micro<real_t>::init(std::unique_ptr<ll::particles_proto_t<real_t>> &prtcls,
       std::cerr  << e.what() << std::endl;
     }
   }
+  //prtcls->init();
 }
 
 template <typename real_t>

@@ -13,13 +13,27 @@ int main()
   // run-time parameters
   typename slv_t::rt_params_t p;
 
-  p.grid_size = { 10, 10, 10 };
+  opts<typename ct_params_t::real_t>(p.micro_params);
+
+  auto &lcph_opts_init(p.micro_params.cloudph_opts_init);
+
+  lcph_opts_init.x0 = lcph_opts_init.dx / 2.;
+  lcph_opts_init.y0 = lcph_opts_init.dy / 2.; 
+  lcph_opts_init.z0 = lcph_opts_init.dz / 2.; 
+  lcph_opts_init.x1 = (lcph_opts_init.nx - .5) * lcph_opts_init.dx;
+  lcph_opts_init.y1 = (lcph_opts_init.ny - .5) * lcph_opts_init.dy;
+  lcph_opts_init.z1 = (lcph_opts_init.nz - .5) * lcph_opts_init.dz;
+
+  p.dt = lcph_opts_init.dt;
+  p.di = lcph_opts_init.dx;
+  p.dj = lcph_opts_init.dy;
+  p.dk = lcph_opts_init.dz;
+  p.grid_size = { lcph_opts_init.nx, lcph_opts_init.ny, lcph_opts_init.nz };
   p.outfreq = 20; 
   p.outdir = "/home/pracownicy/pdziekan/praca/code/icicles/wyniki/";
   p.prs_tol = 1e-7;
   p.nt = 100;
 
-  opts<typename ct_params_t::real_t>(p.micro_params);
 
   using ix = typename ct_params_t::ix;
   p.outvars = {
@@ -35,6 +49,7 @@ int main()
 
   // initial condition
   using ix = typename ct_params_t::ix;
+  run.g_factor() = 1;
   run.advectee(ix::u) = 0.;
   run.advectee(ix::v) = 0.;
   run.advectee(ix::w) = 0.;
